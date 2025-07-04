@@ -2,53 +2,31 @@ package com.booktracker.backend;
 
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 @RequestMapping("/api/books")
-@CrossOrigin(origins = "http://localhost:5173")   // allow your React dev server
+@CrossOrigin(origins = "http://localhost:5173")
 public class BookController {
 
-    // In-memory “store” for demo purposes
-    private final List<Map<String,String>> books = new ArrayList<>();
+    @Autowired
+    private BookRepository bookRepository;
 
-    // Initialize with two dummy books
-    public BookController() {
-        books.add(Map.of(
-            "id", "1",
-            "name", "Atomic Habits",
-            "author", "James Clear",
-            "genre", "Self-Help",
-            "image", "https://covers.openlibrary.org/b/id/10594752-L.jpg"
-        ));
-        books.add(Map.of(
-            "id", "2",
-            "name", "Dune",
-            "author", "Frank Herbert",
-            "genre", "Science Fiction",
-            "image", "https://covers.openlibrary.org/b/id/10318328-L.jpg"
-        ));
-    }
-
-    // GET /api/books  → return all books
+    // GET all books
     @GetMapping
-    public List<Map<String,String>> getAll() {
-        return books;
+    public List<Book> getAll() {
+        return bookRepository.findAll();
     }
 
-    // POST /api/books → accept a book JSON and echo it back (and add to list)
+    // POST a new book
     @PostMapping
-    public Map<String,String> addBook(@RequestBody Map<String,String> newBook) {
-        // assign a simple incremental ID if absent
-        if (!newBook.containsKey("id")) {
-            newBook.put("id", String.valueOf(books.size() + 1));
-        }
-        books.add(newBook);
-        return newBook;
+    public Book addBook(@RequestBody Book newBook) {
+        return bookRepository.save(newBook);
     }
 
-    // DELETE /api/books/{id} → remove by id
+    // DELETE a book by ID
     @DeleteMapping("/{id}")
-    public void deleteBook(@PathVariable String id) {
-        books.removeIf(b -> b.get("id").equals(id));
+    public void deleteBook(@PathVariable Long id) {
+        bookRepository.deleteById(id);
     }
 }
