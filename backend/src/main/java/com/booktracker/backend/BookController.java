@@ -18,6 +18,12 @@ public class BookController {
         return bookRepository.findAll();
     }
 
+    // GET books by status
+    @GetMapping("/status")
+    public List<Book> getByStatus(@RequestParam("value") String status) {
+        return bookRepository.findByStatus(status);
+    }
+
     // POST a new book
     @PostMapping
     public Book addBook(@RequestBody Book newBook) {

@@ -13,15 +13,17 @@ public class Book {
     private String author;
     private String genre;
     private String image;
+    private String status;
 
     // Required by JPA
     public Book() {}
 
-    public Book(String name, String author, String genre, String image) {
+    public Book(String name, String author, String genre, String image, String status) {
         this.name = name;
         this.author = author;
         this.genre = genre;
         this.image = image;
+        this.status = status;
     }
 
     // Getters and setters (can generate via IDE)
@@ -48,4 +50,9 @@ public class Book {
         return image;
     }
     public void setImage(String image) { this.image = image; }
+
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) { this.status = status; }
 }
