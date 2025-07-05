@@ -15,8 +15,48 @@ public class BooktrackerApplication {
 	@Bean
 	CommandLineRunner seedDatabase(BookRepository repository) {
 			return args -> {
-					repository.save(new Book("Atomic Habits", "James Clear", "Self-Help", "https://covers.openlibrary.org/b/id/10594752-L.jpg"));
-					repository.save(new Book("Dune", "Frank Herbert", "Science Fiction", "https://covers.openlibrary.org/b/id/10318328-L.jpg"));
+					repository.save(new Book(
+						"Atomic Habits",
+						"James Clear",
+						"Self-Help",
+						"https://covers.openlibrary.org/b/id/10594752-L.jpg",
+						"Reading"
+					));
+					repository.save(new Book(
+						"Dune",
+						"Frank Herbert",
+						"Science Fiction",
+						"https://covers.openlibrary.org/b/id/10318328-L.jpg",
+						"Reading"
+					));
+					repository.save(new Book(
+						"Atomic Habits",
+						"James Clear",
+						"Self-Help",
+						"https://covers.openlibrary.org/b/id/10594752-L.jpg",
+						"Completed"
+					));
+					repository.save(new Book(
+						"Dune",
+						"Frank Herbert",
+						"Science Fiction",
+						"https://covers.openlibrary.org/b/id/10318328-L.jpg",
+						"Completed"
+					));
+					repository.save(new Book(
+						"Atomic Habits",
+						"James Clear",
+						"Self-Help",
+						"https://covers.openlibrary.org/b/id/10594752-L.jpg",
+						"Wishlist"
+					));
+					repository.save(new Book(
+						"Dune",
+						"Frank Herbert",
+						"Science Fiction",
+						"https://covers.openlibrary.org/b/id/10318328-L.jpg",
+						"Wishlist"
+					));
 			};
 	}
 

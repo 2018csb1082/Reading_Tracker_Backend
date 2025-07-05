@@ -1,7 +1,8 @@
 package com.booktracker.backend;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
-    // No implementation needed – Spring Data provides everything!
+    List<Book> findByStatus(String status);
 }
