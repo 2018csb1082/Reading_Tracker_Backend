@@ -3,6 +3,7 @@ package com.booktracker.backend;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/api/books")
@@ -28,6 +29,23 @@ public class BookController {
     @PostMapping
     public Book addBook(@RequestBody Book newBook) {
         return bookRepository.save(newBook);
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Book> updateBookStatus(
+            @PathVariable Long id,
+            @RequestParam String status) {
+
+        Optional<Book> optionalBook = bookRepository.findById(id);
+        if (!optionalBook.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Book book = optionalBook.get();
+        book.setStatus(status);
+        Book updatedBook = bookRepository.save(book);
+
+        return ResponseEntity.ok(updatedBook);
     }
 
     // DELETE a book by ID
